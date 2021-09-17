@@ -1,4 +1,6 @@
+const config = require("config");
 const Joi = require("joi");
+const morgan = require("morgan");
 const logger = require("./logger");
 const express = require("express");
 const app = express();
@@ -9,7 +11,17 @@ app.use(express.json());
 // To serve static assets / content
 app.use(express.static("public"));
 
-// Logger middleware
+// Configuration (config/)
+console.log("Application Name: " + config.get("name"));
+console.log("Mail Server: " + config.get("mail.host"));
+console.log("Mail Password: " + config.get("mail.password"));
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Morgan enabled...");
+}
+
+// Logger middleware (custom)
 app.use(logger);
 
 // Records
