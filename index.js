@@ -1,8 +1,15 @@
+const debug = require("debug")("app:debug");
+
 const config = require("config");
+
 const Joi = require("joi");
+
 const morgan = require("morgan");
+
 const logger = require("./logger");
+
 const express = require("express");
+
 const app = express();
 
 // Recognize the incoming request object as a JSON.
@@ -18,7 +25,7 @@ console.log("Mail Password: " + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan enabled...");
+  debug("Morgan enabled...");
 }
 
 // Logger middleware (custom)
