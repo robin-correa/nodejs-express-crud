@@ -6,13 +6,11 @@ const app = express();
 // Recognize the incoming request object as a JSON.
 app.use(express.json());
 
+// To serve static assets / content
+app.use(express.static("public"));
+
 // Logger middleware
 app.use(logger);
-
-app.use(function (req, res, next) {
-  console.log("Authenticating...");
-  next();
-});
 
 // Records
 const courses = [
