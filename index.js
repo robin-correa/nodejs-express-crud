@@ -8,9 +8,10 @@ const Joi = require("joi");
 
 const morgan = require("morgan");
 
-const logger = require("./logger");
+const logger = require("./middleware/logger");
 
 const courses = require("./routes/courses");
+const home = require("./routes/home");
 
 const express = require("express");
 
@@ -38,13 +39,11 @@ if (process.env.NODE_ENV === "development") {
 // Logger middleware (custom)
 app.use(logger);
 
+// Home route
+app.use("/", home);
+
 // Courses route
 app.use("/api/courses", courses);
-
-// Main entry point
-app.get("/", (req, res) => {
-  res.render("index", { title: "My Express App", message: "Hello World" });
-});
 
 const port = process.env.PORT || 3000;
 
