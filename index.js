@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const debug = require("debug")("app:debug");
 
 const config = require("config");
@@ -12,6 +14,9 @@ const express = require("express");
 
 const app = express();
 
+app.set("view engine", "pug");
+app.set("views", "./views");
+
 // Recognize the incoming request object as a JSON.
 app.use(express.json());
 
@@ -23,7 +28,7 @@ console.log("Application Name: " + config.get("name"));
 console.log("Mail Server: " + config.get("mail.host"));
 console.log("Mail Password: " + config.get("mail.password"));
 
-if (app.get("env") === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("tiny"));
   debug("Morgan enabled...");
 }
@@ -39,7 +44,7 @@ const courses = [
 
 // Main entry point
 app.get("/", (req, res) => {
-  res.send("Hello World Robin");
+  res.render("index", { title: "My Express App", message: "Hello World" });
 });
 
 // Get all records
