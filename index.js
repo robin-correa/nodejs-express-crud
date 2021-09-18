@@ -4,8 +4,6 @@ const debug = require("debug")("app:debug");
 
 const config = require("config");
 
-const Joi = require("joi");
-
 const morgan = require("morgan");
 
 const logger = require("./middleware/logger");
